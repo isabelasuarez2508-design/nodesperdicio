@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="intro">
+    <h1>Que no se te dañe la comida</h1>
+    <p>
+        En el mundo se desperdicia cerca de un tercio de los alimentos que se producen.
+        Anota lo que tienes en casa y mira qué debes consumir primero.
+    </p>
+</section>
+
+<section class="resumen">
+    <div class="dato">
+        <span class="numero">{{ resumen.total }}</span>
+        <span class="texto">En mi despensa</span>
+    </div>
+    <div class="dato pronto">
+        <span class="numero">{{ resumen.por_vencer }}</span>
+        <span class="texto">Vencen pronto</span>
+    </div>
+    <div class="dato vencido">
+        <span class="numero">{{ resumen.vencidos }}</span>
+        <span class="texto">Vencidos</span>
+    </div>
+    <div class="dato bien">
+        <span class="numero">{{ resumen.aprovechados }}</span>
+        <span class="texto">Aprovechados</span>
+    </div>
+</section>
+
+<section class="tarjeta">
+    <h2>Agregar alimento</h2>
+
+    <form action="{{ url_for('agregar') }}" method="POST" class="formulario">
+        <div class="campo">
+            <label for="nombre">Alimento</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej: Leche, tomates, pan..." maxlength="60" required>
+        </div>
+
+        <div class="campo pequeno">
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="99" required>
+        </div>
+
+        <div class="campo">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria">
+                <option>Frutas y verduras</option>
+                <option>Lácteos</option>
+                <option>Carnes y pescado</option>
+                <option>Panadería</option>
+                <option>Granos y despensa</option>
+                <option>Otros</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="vencimiento">Fecha de vencimiento</label>
+            <input type="date" id="vencimiento" name="vencimiento" value="{{ hoy }}" required>
+        </div>
+
+        <button type="submit" class="boton">Agregar</button>
+    </form>
+</section>
+
+<section>
+    <h2>Mi despensa</h2>
+
+    {% if alimentos %}
+        <p class="ayuda">Ordenados del que vence primero al que vence después.</p>
+
+        <div class="lista">
+            {% for a in alimentos %}
+            <article class="alimento {{ a.clase }}">
+                <div class="info">
+                    <h3>{{ a.nombre }} <small>x{{ a.cantidad }}</small></h3>
+                    <p class="categoria">{{ a.categoria }}</p>
+                    <p class="fecha">{{ a.texto }} · {{ a.vencimiento }}</p>
+                    <span class="etiqueta">{{ a.etiqueta }}</span>
+                </div>
+
+                <div class="acciones">
+                    <form action="{{ url_for('consumido', id=a.id) }}" method="POST">
+                        <button type="submit" class="boton-chico verde">Lo consumí</button>
+                    </form>
+                    <form action="{{ url_for('eliminar', id=a.id) }}" method="POST">
+                        <button type="submit" class="boton-chico gris">Eliminar</button>
+                    </form>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="vacio">
+            <p>Tu despensa está vacía. Agrega tu primer alimento arriba.</p>
+        </div>
+    {% endif %}
+</section>
+
+{% endblock %}

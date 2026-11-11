@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}NoDesperdicio{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <a href="{{ url_for('inicio') }}" class="logo">🥬 NoDesperdicio</a>
+            <nav>
+                <a href="{{ url_for('inicio') }}">Mi despensa</a>
+                <a href="{{ url_for('consejos') }}">Consejos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensaje in mensajes %}
+                <div class="mensaje {{ categoria }}">{{ mensaje }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        {% block contenido %}{% endblock %}
+
+    </main>
+
+    <footer class="footer">
+        <p>Proyecto académico · Hecho con Python, Flask, HTML y CSS</p>
+    </footer>
+
+</body>
+</html>

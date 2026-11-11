@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block titulo %}Consejos · NoDesperdicio{% endblock %}
+
+{% block contenido %}
+
+<section class="intro">
+    <h1>Consejos para no desperdiciar comida</h1>
+    <p>Pequeños hábitos que ayudan a tu bolsillo y al planeta.</p>
+</section>
+
+<section class="consejos">
+
+    <article class="tarjeta">
+        <h3>1. Planea antes de comprar</h3>
+        <p>Haz una lista y revisa qué tienes en casa. Así evitas comprar de más.</p>
+    </article>
+
+    <article class="tarjeta">
+        <h3>2. Primero en entrar, primero en salir</h3>
+        <p>Pon los alimentos más viejos adelante en la nevera y los nuevos atrás.</p>
+    </article>
+
+    <article class="tarjeta">
+        <h3>3. Congela lo que no alcances a consumir</h3>
+        <p>El pan, la carne y muchas frutas se pueden congelar antes de que se dañen.</p>
+    </article>
+
+    <article class="tarjeta">
+        <h3>4. Entiende las fechas</h3>
+        <p>
+            «Consumir preferentemente antes de» habla de calidad, no siempre de seguridad.
+            «Fecha de vencimiento» sí es un límite que debes respetar.
+        </p>
+    </article>
+
+    <article class="tarjeta">
+        <h3>5. Aprovecha las sobras</h3>
+        <p>El arroz del día anterior sirve para un arroz frito y las frutas muy maduras para jugos o postres.</p>
+    </article>
+
+    <article class="tarjeta">
+        <h3>6. Guarda bien cada alimento</h3>
+        <p>Usa recipientes cerrados y guarda las frutas y verduras en el lugar adecuado para que duren más.</p>
+    </article>
+
+</section>
+
+<p class="volver"><a href="{{ url_for('inicio') }}" class="boton">← Volver a mi despensa</a></p>
+
+{% endblock %}
